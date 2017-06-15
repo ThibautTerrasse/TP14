@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
         };
+        bar.setProgress(0);
+        isRunning.set(true);
+        isPausing.set(false);
+        thread.start();
     }
 
 Thread thread = new Thread(new Runnable() {
@@ -63,21 +67,16 @@ Thread thread = new Thread(new Runnable() {
     }
 });
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        bar.setProgress(0);
-        isRunning.set(true);
-        isPausing.set(false);
-        thread.start();
-    }
      @Override
     protected  void onPause(){
          super.onPause();
-         isRunning.set(false);
          isPausing.set(true);
      }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isPausing.set(false);
 
+    }
 }
